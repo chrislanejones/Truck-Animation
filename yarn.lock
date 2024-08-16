@@ -633,7 +633,7 @@
     "@react-spring/shared" "~9.7.4"
     "@react-spring/types" "~9.7.4"
 
-"@react-three/drei@^9.109.5":
+"@react-three/drei@^9.74.15":
   version "9.109.5"
   resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-9.109.5.tgz#501829aee40333e0a7048f24e435f475a04f05c6"
   integrity sha512-Ftw2d01N+83aXTOOMA5y8hF2KBU0w7gBEctyjeHJihUyRuLBdfcgfu5c1OhBjhrdy23ycSYRINaeLkqUBPDFxQ==
