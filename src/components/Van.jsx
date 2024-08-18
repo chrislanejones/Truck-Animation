@@ -9,29 +9,43 @@ export function Van(props) {
   const { nodes, materials } = useGLTF("/Van.glb");
   return (
     <group {...props} dispose={null}>
-      <group>
-        <group rotation={[-Math.PI / 2, 0, 0]} scale={0.1}>
-          <group>
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.Body.geometry}
-              material={materials.Body}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.Tires.geometry}
-              material={materials.Tire}
-            />
-            <mesh
-              castShadow
-              receiveShadow
-              geometry={nodes.Windows.geometry}
-              material={materials.Glass}
-            />
-          </group>
-        </group>
+      <group rotation={[-Math.PI / 2, 0, 0]} scale={0.1}>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Body.geometry}
+          material={materials.Body}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes["Driverside-Window"].geometry}
+          material={materials.Glass}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Lights.geometry}
+          material={materials.Glass}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes["Passangerside-window"].geometry}
+          material={materials.Glass}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tires.geometry}
+          material={materials.Tire}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Windshield.geometry}
+          material={materials.Glass}
+        />
       </group>
     </group>
   );

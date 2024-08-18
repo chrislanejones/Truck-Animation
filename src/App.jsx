@@ -19,7 +19,7 @@ function App() {
       <OrbitControls />
       <Van scale={0.1} />
       <mesh position={[0, 0, 0]} rotation-x={-Math.PI / 2}>
-        <circleGeometry args={[500, 500]} />
+        <circleGeometry args={[190, 190]} />
         <MeshReflectorMaterial
           color="#414141"
           resolution={1024}
