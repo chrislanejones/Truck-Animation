@@ -7,20 +7,12 @@ import { useGLTF } from "@react-three/drei";
 
 export function Van(props) {
   const { nodes, materials } = useGLTF("/Van.glb");
-
   const meshRef = useRef();
-  const [direction, setDirection] = useState(-1);
-  const speedFactor = 19;
+  const speed = 3;
 
   useFrame((state, delta) => {
     if (meshRef.current) {
-      meshRef.current.position.z += direction * delta * speedFactor;
-
-      if (meshRef.current.position.z > 0) {
-        setDirection(-1);
-      } else if (meshRef.current.position.z < -200) {
-        setDirection(1);
-      }
+      meshRef.current.rotation.z += delta * speed;
     }
   });
 
