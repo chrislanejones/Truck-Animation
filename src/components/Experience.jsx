@@ -1,5 +1,11 @@
-import { OrbitControls, MeshReflectorMaterial } from "@react-three/drei";
+import {
+  OrbitControls,
+  MeshReflectorMaterial,
+  useGLTF,
+} from "@react-three/drei";
 import { Van } from "./Van";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 
 function Experience() {
   return (
