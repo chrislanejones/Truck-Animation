@@ -10,7 +10,7 @@ export function Van(props) {
 
   const meshRef = useRef();
   const [direction, setDirection] = useState(-1);
-  const speedFactor = 17;
+  const speedFactor = 19;
 
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -18,7 +18,7 @@ export function Van(props) {
 
       if (meshRef.current.position.z > 0) {
         setDirection(-1);
-      } else if (meshRef.current.position.z < -180) {
+      } else if (meshRef.current.position.z < -200) {
         setDirection(1);
       }
     }
@@ -33,6 +33,7 @@ export function Van(props) {
             receiveShadow
             geometry={nodes["Driverside-Window"].geometry}
             material={materials.Glass}
+            position={[-5.566, 0, 0]}
           />
         </group>
         <mesh
@@ -44,13 +45,14 @@ export function Van(props) {
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Lights.geometry}
+          geometry={nodes["Passangerside-window"].geometry}
           material={materials.Glass}
+          position={[6.595, 0, 0]}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes["Passangerside-window"].geometry}
+          geometry={nodes.Lights.geometry}
           material={materials.Glass}
         />
         <mesh
