@@ -9,18 +9,8 @@ import React, { useEffect, useRef } from "react";
 export function Avatarclj(props) {
   const { nodes, materials } = useGLTF("/models/chrislanejones.glb");
 
-  const group = useRef();
-  const { animations } = useFBX("/animations/CLJSit.fbx");
-  animations[0].name = "CLJSit";
-
-  const { actions } = useAnimations(animations, group);
-
-  useEffect(() => {
-    actions.CLJSit.play();
-  });
-
   return (
-    <group {...props} dispose={null} ref={group}>
+    <group {...props} dispose={null}>
       <primitive object={nodes.Hips} />
       <skinnedMesh
         name="EyeLeft"
@@ -84,4 +74,3 @@ export function Avatarclj(props) {
 }
 
 useGLTF.preload("/models/chrislanejones.glb");
-useFBX.preload("/animations/CLJSit.fbx");

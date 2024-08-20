@@ -2,15 +2,18 @@ import {
   OrbitControls,
   MeshReflectorMaterial,
   useGLTF,
+  PerspectiveCamera,
 } from "@react-three/drei";
 import { Van } from "./Van";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { clj } from "./ChrisLaneJones";
+import { Avatarclj } from "./Avatarclj";
 
 function Experience() {
   return (
     <>
+      <OrbitControls />
+
       <ambientLight intensity={Math.PI / 2} />
       <spotLight
         position={[10, 10, 10]}
@@ -19,14 +22,8 @@ function Experience() {
         decay={0}
         intensity={Math.PI}
       />
-      <OrbitControls />
-      <Van scale={0.1} />
-      <clj
-        rotation-y={Math.PI}
-        rotation-x={Math.PI / 2}
-        scale={0.45}
-        position={[-0.2, -0.02, 0.3]}
-      />
+      <Van scale={0.05} />
+      <Avatarclj scale={5} position={[8, 0, 0]} />
       <mesh position={[0, 0, 0]} rotation-x={-Math.PI / 2}>
         <circleGeometry args={[190, 190]} />
         <MeshReflectorMaterial
