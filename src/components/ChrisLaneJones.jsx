@@ -6,8 +6,8 @@ import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { extend } from "@react-three/fiber";
 
-export function chrislanejones(props) {
-  const { nodes, materials } = useGLTF("/chrislanejones.glb");
+export function clj(props) {
+  const { nodes, materials } = useGLTF("models/chrislanejones.glb");
   return (
     <group {...props} dispose={null}>
       <primitive object={nodes.Hips} />
