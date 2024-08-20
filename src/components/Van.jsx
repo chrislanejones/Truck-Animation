@@ -10,7 +10,7 @@ export function Van(props) {
 
   const meshRef = useRef();
   const [direction, setDirection] = useState(-1);
-  const speedFactor = 33;
+  const speedFactor = 350;
 
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -18,7 +18,7 @@ export function Van(props) {
 
       if (meshRef.current.position.z > 0) {
         setDirection(-1);
-      } else if (meshRef.current.position.z < -200) {
+      } else if (meshRef.current.position.z < -600) {
         setDirection(1);
       }
     }

@@ -6,6 +6,7 @@ import {
 import { Van } from "./Van";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
+import { chrislanejones } from "./ChrisLaneJones";
 
 function Experience() {
   return (
@@ -20,6 +21,7 @@ function Experience() {
       />
       <OrbitControls />
       <Van scale={0.1} />
+      <chrislanejones position={[0, 9, 0]} />
       <mesh position={[0, 0, 0]} rotation-x={-Math.PI / 2}>
         <circleGeometry args={[190, 190]} />
         <MeshReflectorMaterial
