@@ -13,7 +13,6 @@ function Experience() {
   return (
     <>
       <OrbitControls />
-
       <ambientLight intensity={Math.PI / 2} />
       <spotLight
         position={[10, 10, 10]}
@@ -23,7 +22,13 @@ function Experience() {
         intensity={Math.PI}
       />
       <Van scale={0.05} />
-      <Avatarclj scale={5} position={[8, 0, 0]} />
+      <Avatarclj
+        rotation-y={Math.PI}
+        rotation-x={Math.PI / 2}
+        rotation-z={Math.PI}
+        scale={4.5}
+        position={[-0.4, 3.9, 4.8]}
+      />
       <mesh position={[0, 0, 0]} rotation-x={-Math.PI / 2}>
         <circleGeometry args={[190, 190]} />
         <MeshReflectorMaterial

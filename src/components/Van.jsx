@@ -16,7 +16,7 @@ export function Van(props) {
     if (meshRef.current) {
       meshRef.current.position.z += direction * delta * speedFactor;
 
-      if (meshRef.current.position.z > 0) {
+      if (meshRef.current.position.z > -600) {
         setDirection(-1);
       } else if (meshRef.current.position.z < -600) {
         setDirection(1);
@@ -66,6 +66,8 @@ export function Van(props) {
           receiveShadow
           geometry={nodes.Windshield.geometry}
           material={materials.Glass}
+          material-transparent={true}
+          material-opacity={0.5}
         />
       </group>
     </group>
