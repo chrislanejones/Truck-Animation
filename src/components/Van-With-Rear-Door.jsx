@@ -6,7 +6,7 @@ import React, { useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 
 export function Model(props) {
-  const { nodes, materials } = useGLTF("/Van-with-rear-door.glb");
+  const { nodes, materials } = useGLTF("/Van-with-rear-doors.glb");
   return (
     <group {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={0.1}>
@@ -21,14 +21,6 @@ export function Model(props) {
           receiveShadow
           geometry={nodes.Body001.geometry}
           material={materials.Body}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Body002.geometry}
-          material={materials.Body}
-          position={[-1440.79, 2652.726, 933.315]}
-          rotation={[0, 0, 1.306]}
         />
         <mesh
           castShadow
@@ -53,6 +45,22 @@ export function Model(props) {
         <mesh
           castShadow
           receiveShadow
+          geometry={nodes["Rear-Door-Left"].geometry}
+          material={materials.Body}
+          position={[230, 2654.285, 1160]}
+          rotation={[0, 0, -1.489]}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes["Rear-Door-Right"].geometry}
+          material={materials.Body}
+          position={[-1440.79, 2652.726, 933.315]}
+          rotation={[0, 0, 1.397]}
+        />
+        <mesh
+          castShadow
+          receiveShadow
           geometry={nodes.Tires.geometry}
           material={materials.Tire}
         />
@@ -63,18 +71,8 @@ export function Model(props) {
           material={materials.Glass}
         />
       </group>
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Body003.geometry}
-        material={materials["Body.001"]}
-      />
     </group>
   );
 }
 
-useGLTF.preload("/Van-with-rear-door.glb");
-
-rembrandt;
-
-city;
+useGLTF.preload("/Van-with-rear-doors.glb");
