@@ -37,8 +37,8 @@ function Experience() {
         decay={0}
         intensity={Math.PI}
       /> */}
-      <Van scale={0.05} />
-      {/* <VanDoors scale={0.05} /> */}
+      {/* <Van scale={0.05} /> */}
+      <VanDoors scale={0.05} />
       <Avatarclj
         rotation-y={Math.PI}
         rotation-x={Math.PI / 2}

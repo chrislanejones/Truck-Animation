@@ -69,6 +69,8 @@ export function VanDoors(props) {
           receiveShadow
           geometry={nodes.Windshield.geometry}
           material={materials.Glass}
+          material-transparent={true}
+          material-opacity={0.5}
         />
       </group>
     </group>
