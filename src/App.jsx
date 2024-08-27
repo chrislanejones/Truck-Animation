@@ -6,7 +6,8 @@ import { Perf } from "r3f-perf";
 import { getProject } from "@theatre/core";
 import { SheetProvider } from "@theatre/r3f";
 
-const demoSheet = getProject("vanproject").sheet("van");
+const project = getProject("VanProject");
+const mainSheet = project.Sheet("Van");
 
 import studio from "@theatre/studio";
 
@@ -16,7 +17,7 @@ function App() {
   return (
     <>
       <Canvas camera={{ position: [16, 9, 12], fov: 70 }}>
-        <SheetProvider sheet={van}>
+        <SheetProvider sheet={mainSheet}>
           {/* <Perf /> */}
           <Experience />
         </SheetProvider>
