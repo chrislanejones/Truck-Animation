@@ -6,12 +6,14 @@ import { Perf } from "r3f-perf";
 import { getProject } from "@theatre/core";
 import { SheetProvider } from "@theatre/r3f";
 
-const project = getProject("VanProject");
-const mainSheet = project.Sheet("Van");
-
 import studio from "@theatre/studio";
+import extension from "@theatre/r3f/dist/extension";
 
 studio.initialize();
+studio.extend(extension);
+
+const project = getProject("VanProject");
+const mainSheet = project.sheet("Main");
 
 function App() {
   return (

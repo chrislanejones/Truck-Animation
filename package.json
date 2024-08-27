@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-three/drei": "^9.74.15",
+    "@react-three/drei": "^9.32.4",
     "@react-three/eslint-plugin": "^0.1.1",
     "@react-three/fiber": "^8.17.5",
     "@react-three/gltfjsx": "^4.3.4",
@@ -23,7 +23,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "theaterjs": "^3.2.0",
-    "three": "^0.167.1"
+    "three": "^0.145.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

@@ -880,10 +880,10 @@
     uuid "^9.0.1"
     zustand "^3.7.1"
 
-"@react-three/drei@^9.74.15":
-  version "9.109.5"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-9.109.5.tgz#501829aee40333e0a7048f24e435f475a04f05c6"
-  integrity sha512-Ftw2d01N+83aXTOOMA5y8hF2KBU0w7gBEctyjeHJihUyRuLBdfcgfu5c1OhBjhrdy23ycSYRINaeLkqUBPDFxQ==
+"@react-three/drei@^9.32.4":
+  version "9.111.3"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-9.111.3.tgz#e1758c0324806df3e3dc5e52445487d724c51be6"
+  integrity sha512-pc29/2bjQ5Hmwa25VEyM0BbyM3riQN+zsTO041iY5dDEJ98mCjHhnEnIE8N2/c/THAKmeKSGIiVvz8eMPMejlg==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@mediapipe/tasks-vision" "0.10.8"
@@ -4524,10 +4524,10 @@ three@0.122.0:
   resolved "https://registry.yarnpkg.com/three/-/three-0.122.0.tgz#bd9ed8a8820074856e8ba7b63fe0a65176e01aeb"
   integrity sha512-bgYMo0WdaQhf7DhLE8OSNN/rVFO5J4K1A2VeeKqoV4MjjuHjfCP6xLpg8Xedhns7NlEnN3sZ6VJROq19Qyl6Sg==
 
-three@^0.167.1:
-  version "0.167.1"
-  resolved "https://registry.yarnpkg.com/three/-/three-0.167.1.tgz#3fe4ba2b0a03fd662afe4977a56803d955b61689"
-  integrity sha512-gYTLJA/UQip6J/tJvl91YYqlZF47+D/kxiWrbTon35ZHlXEN0VOo+Qke2walF1/x92v55H6enomymg4Dak52kw==
+three@^0.145.0:
+  version "0.145.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.145.0.tgz#a613d71e75effc2aed88be630027ca01e2b6502e"
+  integrity sha512-EKoHQEtEJ4CB6b2BGMBgLZrfwLjXcSUfoI/MiIXUuRpeYsfK5aPWbYhdtIVWOH+x6X0TouldHKHBuc/LAiFzAw==
 
 through@^2.3.4:
   version "2.3.8"

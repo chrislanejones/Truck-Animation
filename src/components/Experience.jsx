@@ -13,6 +13,7 @@ import { useFrame } from "@react-three/fiber";
 import { Avatarclj } from "./Avatarclj";
 import { VanDoors } from "./Van-With-Rear-Door";
 import { Background } from "./Background";
+import { editable as e } from "@theatre/r3f";
 
 function Experience() {
   const texture = useTexture("textures/Road-Asphalt.jpg");
@@ -23,7 +24,7 @@ function Experience() {
   return (
     <>
       <OrbitControls />
-      <ambientLight intensity={Math.PI / 2} />
+      {/* <ambientLight intensity={Math.PI / 2} /> */}
       <Environment
         background={true}
         preset={"park"}
@@ -61,11 +62,12 @@ function Experience() {
           roughness={0.6}
         /> */}
       </mesh>
-      <pointLight
+      <e.pointLight
+        theatreKey="SunLight"
         position={[100, 20, -10]}
         decay={0}
         color="#FFC300"
-        intensity={Math.PI * 1}
+        intensity={Math.PI * 0.5}
       />
     </>
   );
