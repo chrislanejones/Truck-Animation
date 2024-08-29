@@ -5,6 +5,7 @@ import React, { useRef, useState } from "react";
 import { Perf } from "r3f-perf";
 import { getProject } from "@theatre/core";
 import { SheetProvider } from "@theatre/r3f";
+import { PerspectiveCamera } from "@theatre/r3f";
 
 import studio from "@theatre/studio";
 import extension from "@theatre/r3f/dist/extension";
@@ -20,6 +21,13 @@ function App() {
     <>
       <Canvas camera={{ position: [16, 9, 12], fov: 70 }}>
         <SheetProvider sheet={mainSheet}>
+          <PerspectiveCamera
+            position={[5, 5, 10]}
+            fov={30}
+            near={1}
+            makeDefault
+            theatreKey="Camera"
+          />
           {/* <Perf /> */}
           <Experience />
         </SheetProvider>
