@@ -19,10 +19,15 @@ const mainSheet = project.sheet("Main");
 function App() {
   return (
     <>
-      <Canvas camera={{ position: [16, 9, 12], fov: 70 }}>
+      <Canvas
+        camera={{ position: [16, 9, 12], fov: 70, near: 1 }}
+        shadows
+        gl={{ preserveDrawingBuffer: true }}
+      >
         <SheetProvider sheet={mainSheet}>
           <PerspectiveCamera
             position={[5, 5, 10]}
+            rotation={[0, 0, 0]}
             fov={30}
             near={1}
             makeDefault
