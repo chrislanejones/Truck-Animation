@@ -14,6 +14,7 @@ import { Avatarclj } from "./Avatarclj";
 import { VanDoors } from "./Van-With-Rear-Door";
 import { Background } from "./Background";
 import { editable as e } from "@theatre/r3f";
+import { getProject, types } from '@theatre/core';
 
 function Experience() {
   const texture = useTexture("textures/Road-Asphalt.jpg");
@@ -21,9 +22,36 @@ function Experience() {
   texture.repeat.set(10, 10);
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 
+
+  function MyScene() {
+    const gltf = useGLTF('Van-with-rear-doors.glb');
+    const myObjectRef = useRef();
+  
+    useEffect(() => {
+      const project = getProject('My Project');
+      const sheet = project.sheet('Scene');
+      const myObject = sheet.object('My Object', {
+        position: types.compound({ x: 0, y: 0, z: 0 }),
+        rotation: types.compound({ x: 0, y: 0, z: 0 }),
+      });
+  
+      const updateObject = () => {
+        const { position, rotation } = myObject.getValues();
+        myObjectRef.current.position.set(position.x, position.y, position.z);
+        myObjectRef.current.rotation.set(rotation.x, rotation.y, rotation.z);
+      };
+  
+      myObject.onValuesChange(updateObject);
+  
+      return () => {
+        myObject.offValuesChange(updateObject);
+      };
+    }, []);
+
   return (
     <>
       <OrbitControls />
+      <primitive object={gltf.scene} />
       {/* <ambientLight intensity={Math.PI / 2} /> */}
       <Environment
         background={true}
