@@ -22,6 +22,24 @@ function Experience() {
   texture.repeat.set(10, 10);
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 
+  const VanControl = sheet.object("Box", {
+    rotation: types.compound({
+      xR: types.number(0, { range: [-Math.PI, Math.PI] }),
+      yR: types.number(0, { range: [-Math.PI, Math.PI] }),
+      zR: types.number(0, { range: [-Math.PI, Math.PI] }),
+    }),
+    position: types.compound({
+      x: types.number(0, { nudgeMultiplier: 0.1 }),
+      y: types.number(0, { nudgeMultiplier: 0.1 }),
+      z: types.number(0, { nudgeMultiplier: 0.1 }),
+    }),
+    scale: types.compound({
+      xS: types.number(1, { nudgeMultiplier: 0.1 }),
+      yS: types.number(1, { nudgeMultiplier: 0.1 }),
+      zS: types.number(1, { nudgeMultiplier: 0.1 }),
+    }),
+  });
+
   return (
     <>
       <OrbitControls />
