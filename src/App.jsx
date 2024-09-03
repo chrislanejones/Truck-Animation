@@ -6,7 +6,6 @@ import { Perf } from "r3f-perf";
 import { getProject } from "@theatre/core";
 import { SheetProvider } from "@theatre/r3f";
 import { PerspectiveCamera } from "@theatre/r3f";
-import { ScrollControls } from "@react-three/drei";
 
 import studio from "@theatre/studio";
 import extension from "@theatre/r3f/dist/extension";
@@ -21,24 +20,13 @@ function App() {
   return (
     <>
       <Canvas
-        camera={{ position: [16, 9, 12], fov: 70, near: 1 }}
+        camera={{ position: [10, 9, 12], fov: 60, near: 1 }}
         shadows
         gl={{ preserveDrawingBuffer: true }}
       >
-        <ScrollControls pages={3} damping={4}>
-          <SheetProvider sheet={mainSheet}>
-            <PerspectiveCamera
-              position={[5, 5, 10]}
-              rotation={[0, 0, 0]}
-              fov={30}
-              near={1}
-              makeDefault
-              theatreKey="Camera"
-            />
-
-            <Experience />
-          </SheetProvider>
-        </ScrollControls>
+        <SheetProvider sheet={mainSheet}>
+          <Experience />
+        </SheetProvider>
       </Canvas>
       {/* <Perf /> */}
     </>
