@@ -40,7 +40,7 @@ function Experience() {
           position={[100, 20, -10]}
           decay={0}
           color="#FFC300"
-          intensity={Math.PI * 0.4}
+          intensity={Math.PI * 0.3}
         />
       </e.group>
     </>
