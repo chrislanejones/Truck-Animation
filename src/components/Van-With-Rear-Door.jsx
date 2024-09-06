@@ -64,16 +64,20 @@ export function VanDoors(props) {
             />
           </e.group>
         </group>
-        <e.group theatreKey="Right Rear Door">
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes["Rear-Door-Right"].geometry}
-            material={materials.Body}
-            position={[-1440.79, 2652.726, 933.315]}
-            rotation={[0, 0, 1.397]}
-          />
-        </e.group>
+        <group
+          position={[-1440.79, 2652.726, 933.315]}
+          rotation={[Math.PI * -120, 0, 0]}
+        >
+          <e.group theatreKey="Right Rear Door">
+            <mesh
+              castShadow
+              receiveShadow
+              geometry={nodes["Rear-Door-Right"].geometry}
+              material={materials.Body}
+              rotation={[0, 0, 18.83]}
+            />
+          </e.group>
+        </group>
         <mesh
           castShadow
           receiveShadow
