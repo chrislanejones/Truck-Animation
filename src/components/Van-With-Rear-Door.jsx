@@ -25,6 +25,9 @@ export function VanDoors(props) {
     }
   });
 
+  const PivotGroup = ({ children, pivot }) => {
+    const groupRef = useRef();
+
   return (
     <group {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]} scale={0.1}>
@@ -62,7 +65,7 @@ export function VanDoors(props) {
           geometry={nodes.Lights.geometry}
           material={materials.Glass}
         />
-        <e.group theatreKey="Left Rear Door">
+        <e.group theatreKey="Left Rear Door" ref={groupRef}>
           <mesh
             castShadow
             receiveShadow
