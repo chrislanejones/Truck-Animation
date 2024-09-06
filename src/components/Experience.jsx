@@ -1,4 +1,4 @@
-import { useTexture, Environment } from "@react-three/drei";
+import { useTexture, Environment, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { Avatarclj } from "./Avatarclj";
 import { VanDoors } from "./Van-With-Rear-Door";
@@ -9,6 +9,7 @@ import Branding from "./Branding";
 function Experience() {
   return (
     <>
+      <OrbitControls />
       {/* <ambientLight intensity={Math.PI / 2} /> */}
       <e.group theatreKey="World">
         <Environment
