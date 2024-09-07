@@ -36,6 +36,10 @@ function Experience() {
             scale={4.5}
             position={[-0.4, 3.7, 4.8]}
           />
+          <mesh position={[-4, 3, -9]}>
+            <cylinderBufferGeometry attach="geometry" args={[1, 1, 2, 32]} />
+            <meshNormalMaterial attach="material" />
+          </mesh>
         </e.group>
         <Background />
         <e.pointLight
