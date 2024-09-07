@@ -5,6 +5,7 @@ import { VanDoors } from "./Van-With-Rear-Door";
 import { Background } from "./Background";
 import { editable as e } from "@theatre/r3f";
 import Branding from "./Branding";
+import Paint from "./Paint";
 
 function Experience() {
   return (
@@ -36,10 +37,7 @@ function Experience() {
             scale={4.5}
             position={[-0.4, 3.7, 4.8]}
           />
-          <mesh position={[-4, 3, -9]}>
-            <cylinderBufferGeometry attach="geometry" args={[1, 1, 2, 32]} />
-            <meshNormalMaterial attach="material" />
-          </mesh>
+          <Paint />
         </e.group>
         <Background />
         <e.pointLight
