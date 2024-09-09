@@ -35,6 +35,7 @@ function App() {
           />
           <e.mesh
             position={[0, 6, 8]}
+            rotation={[0, 0, 0]}
             theatreKey="Camera Target"
             visible="editor"
             ref={cameraTargetRef}

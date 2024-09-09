@@ -12,13 +12,13 @@ function Experience() {
     <>
       <OrbitControls />
       {/* <ambientLight intensity={Math.PI / 2} /> */}
+      <Environment
+        background={true}
+        preset={"park"}
+        backgroundRotation={[0, Math.PI / 3, 0]}
+        environmentIntensity={0}
+      />
       <e.group theatreKey="World">
-        <Environment
-          background={true}
-          preset={"park"}
-          backgroundRotation={[0, Math.PI / 3, 0]}
-          environmentIntensity={0}
-        />
         {/* <spotLight
         position={[10, 10, 10]}
         angle={0.15}
