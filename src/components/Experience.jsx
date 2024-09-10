@@ -6,6 +6,7 @@ import { Background } from "./Background";
 import { editable as e } from "@theatre/r3f";
 import Branding from "./Branding";
 import Paint from "./Paint";
+import { Van } from "./Van-With Logo";
 
 function Experience() {
   return (
@@ -29,7 +30,8 @@ function Experience() {
         {/* <Van scale={0.05} /> */}
         <e.group theatreKey="Van">
           <Branding />
-          <VanDoors scale={0.05} />
+          <Van scale={0.05} />
+          {/* <VanDoors scale={0.05} /> */}
           <Avatarclj
             rotation-y={Math.PI}
             rotation-x={Math.PI / 2}

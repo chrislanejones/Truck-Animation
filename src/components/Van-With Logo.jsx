@@ -23,8 +23,6 @@ export function Van(props) {
             geometry={nodes["Passangerside-window"].geometry}
             material={materials.Glass}
             position={[6.595, 0, 0]}
-            material-transparent={true}
-            material-opacity={0.5}
           />
           <mesh
             castShadow
@@ -32,8 +30,6 @@ export function Van(props) {
             geometry={nodes["Driverside-Window"].geometry}
             material={materials.Glass}
             position={[-5.566, 0, 0]}
-            material-transparent={true}
-            material-opacity={0.5}
           />
         </group>
         <mesh
