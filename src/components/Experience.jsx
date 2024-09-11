@@ -7,8 +7,17 @@ import { editable as e } from "@theatre/r3f";
 import Branding from "./Branding";
 import Paint from "./Paint";
 import { Van } from "./Van-With Logo";
+import { useEffect, useState } from "react";
 
 function Experience() {
+  const [vanVisible, setVanVisible] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setVanVisible(true);
+    }, 1000);
+  }, []);
+
   return (
     <>
       <OrbitControls />
@@ -30,7 +39,7 @@ function Experience() {
         {/* <Van scale={0.05} /> */}
         <e.group theatreKey="Van">
           <Branding />
-          <Van scale={0.05} />
+          {vanVisible && <Van scale={0.05} />}
           {/* <VanDoors scale={0.05} /> */}
           <Avatarclj
             rotation-y={Math.PI}
