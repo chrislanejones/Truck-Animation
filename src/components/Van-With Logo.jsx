@@ -76,8 +76,7 @@ export function Van(props) {
               receiveShadow
               geometry={nodes["Rear-Door-Left"].geometry}
               material={materials.Body}
-              position={[230, 2654.285, 1160]}
-              rotation={[0, 0, -1.489]}
+              rotation={[0, 0, -18.81]}
             />
           </e.group>
         </group>
@@ -91,8 +90,7 @@ export function Van(props) {
               receiveShadow
               geometry={nodes["Rear-Door-Right"].geometry}
               material={materials.Body}
-              position={[-1440.79, 2652.726, 933.315]}
-              rotation={[0, 0, 1.397]}
+              rotation={[0, 0, 18.83]}
             />
           </e.group>
         </group>

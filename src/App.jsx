@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import React, { useRef } from "react";
+import React, { Suspense, useRef } from "react";
 import { Perf } from "r3f-perf";
 import { getProject } from "@theatre/core";
 import { PerspectiveCamera, SheetProvider, editable as e } from "@theatre/r3f";
@@ -15,6 +15,15 @@ studio.extend(extension);
 const project = getProject("VanProject");
 const mainSheet = project.sheet("Main");
 
+const CubeLoader = () => {
+  return (
+    <mesh>
+      <boxGeometry />
+      <meshNormalMaterial />
+    </mesh>
+  );
+};
+
 function App() {
   const cameraTargetRef = useRef();
   return (
@@ -24,28 +33,30 @@ function App() {
         shadows
         gl={{ preserveDrawingBuffer: true }}
       >
-        <SheetProvider sheet={mainSheet}>
-          <PerspectiveCamera
-            position={[14, 10, 35]}
-            fov={30}
-            near={1}
-            makeDefault
-            theatreKey="Camera"
-            lookAt={cameraTargetRef}
-          />
-          <e.mesh
-            position={[0, 6, 8]}
-            rotation={[0, 0, 0]}
-            theatreKey="Camera Target"
-            visible="editor"
-            ref={cameraTargetRef}
-          >
-            <octahedronGeometry args={[0.1, 0]} />
-            <meshPhongMaterial color="yellow" />
-          </e.mesh>
+        <Suspense fallback={<CubeLoader />}>
+          <SheetProvider sheet={mainSheet}>
+            <PerspectiveCamera
+              position={[14, 10, 35]}
+              fov={30}
+              near={1}
+              makeDefault
+              theatreKey="Camera"
+              lookAt={cameraTargetRef}
+            />
+            <e.mesh
+              position={[0, 6, 8]}
+              rotation={[0, 0, 0]}
+              theatreKey="Camera Target"
+              visible="editor"
+              ref={cameraTargetRef}
+            >
+              <octahedronGeometry args={[0.1, 0]} />
+              <meshPhongMaterial color="yellow" />
+            </e.mesh>
 
-          <Experience />
-        </SheetProvider>
+            <Experience />
+          </SheetProvider>
+        </Suspense>
       </Canvas>
       {/* <Perf /> */}
     </>
