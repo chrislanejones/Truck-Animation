@@ -36,6 +36,7 @@ function App() {
 
   const [currentScreen, setCurrentScreen] = useState("Start");
   const [targetScreen, setTargetScreen] = useState("Start");
+  const isSetup = useRef(false);
 
   useEffect(() => {
     project.ready.then(() => {

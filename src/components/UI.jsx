@@ -52,13 +52,13 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
           }}
         >
           <button
-            onClick={() => onScreenChange("Castle")}
+            onClick={() => onScreenChange("Middle")}
             className="bg-gray-400 bg-opacity-50 p-3 rounded-full text-white font-medium"
           >
             Visit the historic castle
           </button>
           <button
-            onClick={() => onScreenChange("Windmill")}
+            onClick={() => onScreenChange("End")}
             className="bg-gray-400 bg-opacity-50 p-3 rounded-full text-white font-medium"
           >
             Discover the town windmill
@@ -117,7 +117,7 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
             doloribus quidem.
           </motion.p>
           <motion.button
-            onClick={() => onScreenChange("Home")}
+            onClick={() => onScreenChange("Start")}
             className="bg-gray-400 bg-opacity-50  p-3 mt-3 rounded-full text-white font-medium"
             initial={{
               y: 80,
@@ -190,7 +190,7 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
             doloribus quidem.
           </motion.p>
           <motion.button
-            onClick={() => onScreenChange("Home")}
+            onClick={() => onScreenChange("Start")}
             className="bg-gray-400 bg-opacity-50  p-3 mt-3 rounded-full text-white font-medium"
             initial={{
               y: 80,
