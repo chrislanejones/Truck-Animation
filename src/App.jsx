@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import React, { Suspense, useRef } from "react";
+import React, { Suspense, useEffect, useRef } from "react";
 import { Perf } from "r3f-perf";
 import { getProject } from "@theatre/core";
 import { PerspectiveCamera, SheetProvider, editable as e } from "@theatre/r3f";
@@ -14,6 +14,18 @@ studio.extend(extension);
 
 const project = getProject("VanProject");
 const mainSheet = project.sheet("Main");
+
+const transitions = {
+   Start: [0, 2],
+   Middle: [2, 4],
+   End: [4, 8]
+}
+
+useEffect(() => {
+  project.ready.then(() => {
+    if (currentScreen === targetScreen)
+  })
+})
 
 const CubeLoader = () => {
   return (
