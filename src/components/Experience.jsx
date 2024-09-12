@@ -11,11 +11,25 @@ import { useEffect, useState } from "react";
 
 function Experience() {
   const [vanVisible, setVanVisible] = useState(false);
+  const [manVisible, setManVisible] = useState(false);
+  const [canVisible, setCanVisible] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
       setVanVisible(true);
     }, 1000);
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setManVisible(true);
+    }, 1100);
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setCanVisible(true);
+    }, 1250);
   }, []);
 
   return (
@@ -41,14 +55,16 @@ function Experience() {
           <Branding />
           {vanVisible && <Van scale={0.05} />}
           {/* <VanDoors scale={0.05} /> */}
-          <Avatarclj
-            rotation-y={Math.PI}
-            rotation-x={Math.PI / 2}
-            rotation-z={Math.PI}
-            scale={4.5}
-            position={[-0.4, 3.7, 4.8]}
-          />
-          <Paint />
+          {manVisible && (
+            <Avatarclj
+              rotation-y={Math.PI}
+              rotation-x={Math.PI / 2}
+              rotation-z={Math.PI}
+              scale={4.5}
+              position={[-0.4, 3.7, 4.8]}
+            />
+          )}
+          {canVisible && <Paint />}
         </e.group>
         <Background />
         <e.pointLight
