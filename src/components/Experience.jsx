@@ -17,19 +17,19 @@ function Experience() {
   useEffect(() => {
     setTimeout(() => {
       setVanVisible(true);
-    }, 1000);
+    }, 200);
   }, []);
 
   useEffect(() => {
     setTimeout(() => {
       setManVisible(true);
-    }, 1100);
+    }, 300);
   }, []);
 
   useEffect(() => {
     setTimeout(() => {
       setCanVisible(true);
-    }, 1250);
+    }, 400);
   }, []);
 
   return (

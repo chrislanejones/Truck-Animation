@@ -4,7 +4,7 @@ import { Perf } from "r3f-perf";
 import { getProject } from "@theatre/core";
 import { PerspectiveCamera, SheetProvider, editable as e } from "@theatre/r3f";
 import Experience from "./components/Experience";
-
+import "./App.css";
 import studio from "@theatre/studio";
 import extension from "@theatre/r3f/dist/extension";
 import { UI } from "./components/UI";
@@ -33,29 +33,39 @@ const transitions = {
 function App() {
   const cameraTargetRef = useRef();
 
-  const [currentScreen, setCurrentScreen] = useState("Start");
+  const [currentScreen, setCurrentScreen] = useState("Intro");
   const [targetScreen, setTargetScreen] = useState("Start");
   const isSetup = useRef(false);
 
   useEffect(() => {
+    let isMounted = true;
+
     project.ready.then(() => {
+      if (!isMounted) return;
+
       if (currentScreen === targetScreen) {
         return;
       }
+      if (isSetup.current && currentScreen === "Intro") {
+        // Strict mode in development will trigger the useEffect twice, so we need to check if it's already setup
+        return;
+      }
       isSetup.current = true;
-      const reverse = targetScreen === "Start";
-      const transition = transitions[reverse ? currentScreen : targetScreen];
+      const transition = transitions[targetScreen];
       if (!transition) {
+        console.warn(`No transition found for target screen: ${targetScreen}`);
         return;
       }
       mainSheet.sequence
         .play({
           range: transition,
-          direction: reverse ? "reverse" : "normal",
-          rate: reverse ? 2 : 1,
+          direction: "normal",
+          rate: 1,
         })
         .then(() => {
-          setCurrentScreen(targetScreen);
+          if (isMounted) {
+            setCurrentScreen(targetScreen);
+          }
         });
     });
   }, [targetScreen]);

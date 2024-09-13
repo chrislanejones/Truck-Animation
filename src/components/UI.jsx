@@ -2,23 +2,23 @@ import { motion } from "framer-motion";
 export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
   return (
     <motion.main
-      className="fixed inset-0 z-10"
+      className="fixed inset-9 z-10"
       animate={isAnimating ? "" : currentScreen}
     >
       <section
-        className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-1000 ${
+        className={`absolute inset-0 flex flex-col items-end justify-center transition-opacity pr-4 duration-1000 ${
           currentScreen === "Start" && !isAnimating
             ? ""
             : "opacity-0 pointer-events-none"
         }`}
       >
         <motion.img
-          src="/images/logo.svg"
+          src="images/Daves-Paint.jpg"
           alt="Medieval Town"
-          className="w-32"
+          className="h-40"
           initial={{
             y: -80,
-            opacity: 0,
+            opacity: 80,
           }}
           variants={{
             Home: {
@@ -32,13 +32,13 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
           }}
         />
         <h1 className="text-7xl text-white opacity-90 font-extrabold">
-          Dave's Professional Paint
+          Locust County Painter
         </h1>
         <motion.div
           className="flex items-center gap-3 mt-2"
           initial={{
             y: 80,
-            opacity: 0,
+            opacity: 100,
           }}
           variants={{
             Home: {
@@ -53,15 +53,15 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
         >
           <button
             onClick={() => onScreenChange("Middle")}
-            className="bg-gray-400 bg-opacity-50 p-3 rounded-full text-white font-medium"
+            className="bg-cyan-400 bg-opacity-80 p-3 rounded-full text-white text-lg"
           >
-            Visit the historic castle
+            Read About Us
           </button>
           <button
             onClick={() => onScreenChange("End")}
-            className="bg-gray-400 bg-opacity-50 p-3 rounded-full text-white font-medium"
+            className="bg-cyan-400 bg-opacity-80 p-3 rounded-full text-white text-lg"
           >
-            Discover the town windmill
+            Why Use Dave's
           </button>
         </motion.div>
       </section>
@@ -78,7 +78,7 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
             className="text-7xl text-white opacity-90 font-extrabold -ml-1"
             initial={{
               y: 80,
-              opacity: 0,
+              opacity: 80,
             }}
             variants={{
               Castle: {
@@ -91,13 +91,13 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
               },
             }}
           >
-            Castle
+            About Us
           </motion.h1>
           <motion.p
             className="text-white mt-2"
             initial={{
               y: 80,
-              opacity: 0,
+              opacity: 80,
             }}
             variants={{
               Castle: {
@@ -121,7 +121,7 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
             className="bg-gray-400 bg-opacity-50  p-3 mt-3 rounded-full text-white font-medium"
             initial={{
               y: 80,
-              opacity: 0,
+              opacity: 80,
             }}
             variants={{
               Castle: {
@@ -151,7 +151,7 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
             className="text-7xl text-white opacity-90 font-extrabold -ml-1"
             initial={{
               y: 80,
-              opacity: 0,
+              opacity: 80,
             }}
             variants={{
               Windmill: {
@@ -164,13 +164,13 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
               },
             }}
           >
-            Windmill
+            Why Use Dave's
           </motion.h1>
           <motion.p
             className="text-white mt-2"
             initial={{
               y: 80,
-              opacity: 0,
+              opacity: 80,
             }}
             variants={{
               Windmill: {
@@ -194,7 +194,7 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
             className="bg-gray-400 bg-opacity-50  p-3 mt-3 rounded-full text-white font-medium"
             initial={{
               y: 80,
-              opacity: 0,
+              opacity: 80,
             }}
             variants={{
               Windmill: {
