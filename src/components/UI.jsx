@@ -31,8 +31,8 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
             },
           }}
         />
-        <h1 className="text-7xl text-white opacity-90 font-extrabold">
-          Locust County Painter
+        <h1 className="text-7xl text-cyan-400 drop-shadow-xl shadow-2xl opacity-90 font-extrabold">
+          Locust County<br></br> Painter
         </h1>
         <motion.div
           className="flex items-center gap-3 mt-2"
@@ -53,13 +53,13 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
         >
           <button
             onClick={() => onScreenChange("Middle")}
-            className="bg-cyan-400 bg-opacity-80 p-3 rounded-full text-white text-lg"
+            className="bg-black bg-opacity-80 p-3 rounded-full text-cyan-400 text-lg"
           >
             Read About Us
           </button>
           <button
             onClick={() => onScreenChange("End")}
-            className="bg-cyan-400 bg-opacity-80 p-3 rounded-full text-white text-lg"
+            className="bg-black bg-opacity-80 p-3 rounded-full text-cyan-400 text-lg"
           >
             Why Use Dave's
           </button>

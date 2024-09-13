@@ -1,10 +1,8 @@
 import { useTexture, Environment, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import { Avatarclj } from "./Avatarclj";
-import { VanDoors } from "./Van-With-Rear-Door";
 import { Background } from "./Background";
 import { editable as e } from "@theatre/r3f";
-import Branding from "./Branding";
 import Paint from "./Paint";
 import { Van } from "./Van-With Logo";
 import { useEffect, useState } from "react";
@@ -49,11 +47,8 @@ function Experience() {
         decay={0}
         intensity={Math.PI}
       /> */}
-        {/* <Van scale={0.05} /> */}
         <e.group theatreKey="Van">
-          <Branding />
           {vanVisible && <Van scale={0.05} />}
-          {/* <VanDoors scale={0.05} /> */}
           {manVisible && (
             <Avatarclj
               rotation-y={Math.PI}
