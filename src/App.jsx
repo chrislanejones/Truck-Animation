@@ -3,7 +3,6 @@ import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Perf } from "r3f-perf";
 import { getProject } from "@theatre/core";
 import { PerspectiveCamera, SheetProvider, editable as e } from "@theatre/r3f";
-import "./App.css";
 import Experience from "./components/Experience";
 
 import studio from "@theatre/studio";

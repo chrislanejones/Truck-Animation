@@ -32,7 +32,7 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
           }}
         />
         <h1 className="text-7xl text-white opacity-90 font-extrabold">
-          Medieval Town
+          Dave's Professional Paint
         </h1>
         <motion.div
           className="flex items-center gap-3 mt-2"

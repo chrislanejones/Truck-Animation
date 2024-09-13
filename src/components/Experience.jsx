@@ -34,7 +34,6 @@ function Experience() {
 
   return (
     <>
-      <OrbitControls />
       {/* <ambientLight intensity={Math.PI / 2} /> */}
       <Environment
         background={true}
