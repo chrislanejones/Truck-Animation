@@ -9,6 +9,9 @@ import studio from "@theatre/studio";
 import extension from "@theatre/r3f/dist/extension";
 import { UI } from "./components/UI";
 
+import projectState from "./assets/VanProject.theatre-project-state-IX.json";
+
+export const isProd = import.meta.env.MODE === "production";
 studio.initialize();
 studio.extend(extension);
 
