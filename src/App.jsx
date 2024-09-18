@@ -12,10 +12,21 @@ import { UI } from "./components/UI";
 import projectState from "./assets/VanProject.theatre-project-state-IX.json";
 
 export const isProd = import.meta.env.MODE === "production";
-studio.initialize();
-studio.extend(extension);
 
-const project = getProject("VanProject");
+if (!isProd) {
+  studio.initialize();
+  studio.extend(extension);
+}
+
+const project = getProject(
+  "VanProject",
+  isProd
+    ? {
+        state: projectState,
+      }
+    : undefined
+);
+
 const mainSheet = project.sheet("Main");
 
 const CubeLoader = () => {

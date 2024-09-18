@@ -14,7 +14,7 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
       >
         <motion.img
           src="images/Daves-Paint.jpg"
-          alt="Medieval Town"
+          alt="Paint Truck"
           className="h-40"
           initial={{
             y: -80,
@@ -32,7 +32,7 @@ export const UI = ({ currentScreen, onScreenChange, isAnimating }) => {
           }}
         />
         <h1 className="text-7xl text-cyan-400 drop-shadow-xl shadow-2xl opacity-90 font-extrabold">
-          Locust County<br></br> Painter
+          River County<br></br> Painter
         </h1>
         <motion.div
           className="flex items-center gap-3 mt-2"

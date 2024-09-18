@@ -1,7 +1,13 @@
 # React Three Fiber Truck Animation
 
-## Van with Driver in a Park Environment
+## Created a Motion Graphic page with React Three Fiber and Theater.js
 
-Truck Gltf File - Renault Master L2H2 Panel Van 2020 - tedpermana (https://sketchfab.com/tedpermana)
+- Split the original object from Shetchfab to allow windows to close and doors to open
+- Created a interactive enviroment, clicking the buttons moves the truck and reveals more information.
+- Added the environment and the lighting in a neighborhood environment.
 
-![Delivery Truck in a Park](/public/images/Delivery-Truck.jpg)
+Ideal for a small paint business
+
+### The Truck Gltf File - Renault Master L2H2 Panel Van 2020 - tedpermana (https://sketchfab.com/tedpermana)
+
+![Delivery Truck in a Park](/public/images/Paint-Van-Business.jpg)
