@@ -19,6 +19,7 @@
     "@theatre/studio": "0.5",
     "@types/three": "^0.167.1",
     "framer-motion": "^10.16.4",
+    "leva": "^0.9.35",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "theaterjs": "^3.2.0",
