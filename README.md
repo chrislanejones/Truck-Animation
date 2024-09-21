@@ -6,7 +6,7 @@
 - Created a interactive enviroment, clicking the buttons moves the truck and reveals more information.
 - Added the environment and the lighting in a neighborhood environment.
 
-Ideal for a small paint business
+Ideal for a large commercial paint business
 
 ### The Truck Gltf File - Renault Master L2H2 Panel Van 2020 - tedpermana (https://sketchfab.com/tedpermana)
 
