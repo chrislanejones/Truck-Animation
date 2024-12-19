@@ -1,6 +1,5 @@
 import { Canvas } from "@react-three/fiber";
 import React, { Suspense, useEffect, useRef, useState } from "react";
-import { Perf } from "r3f-perf";
 import { getProject } from "@theatre/core";
 import { PerspectiveCamera, SheetProvider, editable as e } from "@theatre/r3f";
 import Experience from "./components/Experience";
@@ -20,23 +19,17 @@ if (!isProd) {
 
 const project = getProject(
   "VanProject",
-  isProd
-    ? {
-        state: projectState,
-      }
-    : undefined
+  isProd ? { state: projectState } : undefined
 );
 
 const mainSheet = project.sheet("Main");
 
-const CubeLoader = () => {
-  return (
-    <mesh>
-      <boxGeometry />
-      <meshNormalMaterial />
-    </mesh>
-  );
-};
+const CubeLoader = () => (
+  <mesh>
+    <boxGeometry />
+    <meshNormalMaterial />
+  </mesh>
+);
 
 const transitions = {
   Start: [0, 2],
@@ -46,10 +39,32 @@ const transitions = {
 
 function App() {
   const cameraTargetRef = useRef();
-
   const [currentScreen, setCurrentScreen] = useState("Intro");
   const [targetScreen, setTargetScreen] = useState("Start");
   const isSetup = useRef(false);
+  const previousScreen = useRef(currentScreen);
+
+  const handleScreenTransition = async (from, to) => {
+    const fromRange = transitions[from];
+    const toRange = transitions[to];
+
+    if (!fromRange || !toRange) {
+      console.warn(`Invalid transition: ${from} -> ${to}`);
+      return;
+    }
+
+    // Determine if we need to play forward or backward
+    const playForward = fromRange[0] < toRange[0];
+    const range = playForward
+      ? [fromRange[0], toRange[1]]
+      : [toRange[0], fromRange[1]];
+
+    await mainSheet.sequence.play({
+      range,
+      direction: playForward ? "normal" : "reverse",
+      rate: 1,
+    });
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -57,32 +72,39 @@ function App() {
     project.ready.then(() => {
       if (!isMounted) return;
 
-      if (currentScreen === targetScreen) {
-        return;
-      }
-      if (isSetup.current && currentScreen === "Intro") {
-        // Strict mode in development will trigger the useEffect twice, so we need to check if it's already setup
-        return;
-      }
+      if (currentScreen === targetScreen) return;
+      if (isSetup.current && currentScreen === "Intro") return;
+
       isSetup.current = true;
-      const transition = transitions[targetScreen];
-      if (!transition) {
-        console.warn(`No transition found for target screen: ${targetScreen}`);
-        return;
-      }
-      mainSheet.sequence
-        .play({
-          range: transition,
-          direction: "normal",
-          rate: 1,
-        })
-        .then(() => {
+
+      if (currentScreen === "Intro") {
+        // Initial setup
+        mainSheet.sequence
+          .play({
+            range: transitions[targetScreen],
+            direction: "normal",
+            rate: 1,
+          })
+          .then(() => {
+            if (isMounted) {
+              setCurrentScreen(targetScreen);
+            }
+          });
+      } else {
+        // Handle transitions between screens
+        handleScreenTransition(currentScreen, targetScreen).then(() => {
           if (isMounted) {
             setCurrentScreen(targetScreen);
           }
         });
+      }
     });
+
+    return () => {
+      isMounted = false;
+    };
   }, [targetScreen]);
+
   return (
     <>
       <UI
@@ -115,12 +137,10 @@ function App() {
               <octahedronGeometry args={[0.1, 0]} />
               <meshPhongMaterial color="yellow" />
             </e.mesh>
-
             <Experience />
           </SheetProvider>
         </Suspense>
       </Canvas>
-      {/* <Perf /> */}
     </>
   );
 }

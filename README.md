@@ -11,3 +11,5 @@ Ideal for a large commercial paint business
 ### The Truck Gltf File - Renault Master L2H2 Panel Van 2020 - tedpermana (https://sketchfab.com/tedpermana)
 
 ![Delivery Truck in a Park](/public/images/Paint-Van-Business.webp)
+
+Open the project with `Yarn Build`
