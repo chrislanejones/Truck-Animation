@@ -1,8 +1,5 @@
-import { Canvas } from "@react-three/fiber";
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { getProject } from "@theatre/core";
-import { PerspectiveCamera, SheetProvider, editable as e } from "@theatre/r3f";
-import Experience from "./components/Experience";
 import "./App.css";
 import studio from "@theatre/studio";
 import extension from "@theatre/r3f/dist/extension";
@@ -24,11 +21,24 @@ const project = getProject(
 
 const mainSheet = project.sheet("Main");
 
-const CubeLoader = () => (
-  <mesh>
-    <boxGeometry />
-    <meshNormalMaterial />
-  </mesh>
+// Lazy load the 3D scene to split the bundle
+const Scene = lazy(() => import("./components/Scene").then(module => ({ default: module.Scene })));
+
+const LoadingScreen = () => (
+  <div style={{ 
+    position: 'fixed', 
+    top: 0, 
+    left: 0, 
+    width: '100%', 
+    height: '100%', 
+    display: 'flex', 
+    alignItems: 'center', 
+    justifyContent: 'center',
+    background: '#000',
+    color: '#fff'
+  }}>
+    <div>Loading 3D Scene...</div>
+  </div>
 );
 
 const transitions = {
@@ -38,7 +48,6 @@ const transitions = {
 };
 
 function App() {
-  const cameraTargetRef = useRef();
   const [currentScreen, setCurrentScreen] = useState("Intro");
   const [targetScreen, setTargetScreen] = useState("Start");
   const isSetup = useRef(false);
@@ -112,35 +121,9 @@ function App() {
         onScreenChange={setTargetScreen}
         isAnimating={currentScreen !== targetScreen}
       />
-      <Canvas
-        camera={{ position: [0, 0, 0], fov: 80, near: 1 }}
-        shadows
-        gl={{ preserveDrawingBuffer: true }}
-      >
-        <Suspense fallback={<CubeLoader />}>
-          <SheetProvider sheet={mainSheet}>
-            <PerspectiveCamera
-              position={[14, 10, 35]}
-              fov={30}
-              near={1}
-              makeDefault
-              theatreKey="Camera"
-              lookAt={cameraTargetRef}
-            />
-            <e.mesh
-              position={[0, 6, 8]}
-              rotation={[0, 0, 0]}
-              theatreKey="Camera Target"
-              visible="editor"
-              ref={cameraTargetRef}
-            >
-              <octahedronGeometry args={[0.1, 0]} />
-              <meshPhongMaterial color="yellow" />
-            </e.mesh>
-            <Experience />
-          </SheetProvider>
-        </Suspense>
-      </Canvas>
+      <Suspense fallback={<LoadingScreen />}>
+        <Scene mainSheet={mainSheet} />
+      </Suspense>
     </>
   );
 }

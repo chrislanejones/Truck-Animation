@@ -8,27 +8,27 @@ const Paint = () => {
   return (
     <>
       <mesh position={[-4, 3, -9]} ref={meshRef}>
-        <cylinderBufferGeometry attach="geometry" args={[1, 1, 2, 32]} />
+        <cylinderGeometry attach="geometry" args={[1, 1, 2, 32]} />
         <meshStandardMaterial map={texture} />
       </mesh>
       <mesh position={[-1.5, 3, -9]} ref={meshRef}>
-        <cylinderBufferGeometry attach="geometry" args={[1, 1, 2, 32]} />
+        <cylinderGeometry attach="geometry" args={[1, 1, 2, 32]} />
         <meshStandardMaterial map={texture} />
       </mesh>
       <mesh position={[0.1, 5, -9]} ref={meshRef}>
-        <cylinderBufferGeometry attach="geometry" args={[1, 1, 2, 32]} />
+        <cylinderGeometry attach="geometry" args={[1, 1, 2, 32]} />
         <meshStandardMaterial map={texture} />
       </mesh>
       <mesh position={[0.1, 5, -9]} ref={meshRef}>
-        <cylinderBufferGeometry attach="geometry" args={[1, 1, 2, 32]} />
+        <cylinderGeometry attach="geometry" args={[1, 1, 2, 32]} />
         <meshStandardMaterial map={texture} />
       </mesh>
       <mesh position={[-3.1, 5, -9.6]} ref={meshRef}>
-        <cylinderBufferGeometry attach="geometry" args={[1, 1, 2, 32]} />
+        <cylinderGeometry attach="geometry" args={[1, 1, 2, 32]} />
         <meshStandardMaterial map={texture} />
       </mesh>
       <mesh position={[-5.6, 5, -9.4]} ref={meshRef}>
-        <cylinderBufferGeometry attach="geometry" args={[1, 1, 2, 32]} />
+        <cylinderGeometry attach="geometry" args={[1, 1, 2, 32]} />
         <meshStandardMaterial map={texture} />
       </mesh>
     </>
