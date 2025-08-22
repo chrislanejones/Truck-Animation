@@ -32,21 +32,18 @@ function Experience() {
 
   return (
     <>
-      {/* <ambientLight intensity={Math.PI / 2} /> */}
+      {/* Enhanced ambient lighting for better overall illumination */}
+      <ambientLight intensity={0.4} color="#f5f5f5" />
+
+      {/* Environment with slight intensity to contribute to lighting */}
       <Environment
         background={true}
         preset={"park"}
         backgroundRotation={[0, Math.PI / 3, 0]}
-        environmentIntensity={0}
+        environmentIntensity={0.3}
       />
+
       <e.group theatreKey="World">
-        {/* <spotLight
-        position={[10, 10, 10]}
-        angle={0.15}
-        penumbra={1}
-        decay={0}
-        intensity={Math.PI}
-      /> */}
         <e.group theatreKey="Van">
           {vanVisible && <Van scale={0.05} />}
           {manVisible && (
@@ -61,12 +58,23 @@ function Experience() {
           {canVisible && <Paint />}
         </e.group>
         <Background />
+
+        {/* Your existing sun light */}
         <e.pointLight
           theatreKey="SunLight"
           position={[100, 20, -10]}
           decay={0}
           color="#FFC300"
           intensity={Math.PI * 0.3}
+        />
+
+        {/* Additional subtle fill light to brighten shadows */}
+        <e.pointLight
+          theatreKey="FillLight"
+          position={[-50, 30, 50]}
+          decay={2}
+          color="#b8d4ff"
+          intensity={0.5}
         />
       </e.group>
     </>
