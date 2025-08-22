@@ -5,7 +5,7 @@ import studio from "@theatre/studio";
 import extension from "@theatre/r3f/dist/extension";
 import { UI } from "./components/UI";
 import Loading from "./components/Loading";
-import { useGLTF, useFBX } from "@react-three/drei";
+import { useGLTF, useFBX, useTexture } from "@react-three/drei";
 
 import projectState from "./assets/VanProject.theatre-project-state-X.json";
 
@@ -25,52 +25,106 @@ const mainSheet = project.sheet("Main");
 
 // Asset Preloader Component
 const AssetPreloader = ({ onProgress, onComplete }) => {
-  const [loadedAssets, setLoadedAssets] = useState(0);
-  const totalAssets = 3; // Van, Avatar model, Avatar animation
-
   useEffect(() => {
+    let isMounted = true;
+
     const loadAssets = async () => {
       const assets = [
-        "/VanWithLogo.glb",
-        "/models/chrislanejones.glb",
-        "/animations/CLJDriving.fbx",
+        { path: "/VanWithLogo.glb", type: "gltf", name: "Van Model" },
+        {
+          path: "/models/chrislanejones.glb",
+          type: "gltf",
+          name: "Character Model",
+        },
+        {
+          path: "/animations/CLJDriving.fbx",
+          type: "fbx",
+          name: "Character Animation",
+        },
+        {
+          path: "textures/Road-Asphalt.jpg",
+          type: "texture",
+          name: "Road Texture",
+        },
+        {
+          path: "textures/Euro-Urban-Street.jpg",
+          type: "texture",
+          name: "Street Texture",
+        },
+        { path: "images/Ropaint.png", type: "texture", name: "Paint Texture" },
       ];
 
+      let loadedCount = 0;
+      const totalAssets = assets.length;
+
+      // Update progress immediately to show 0%
+      if (isMounted) {
+        onProgress(0);
+      }
+
       for (let i = 0; i < assets.length; i++) {
+        const asset = assets[i];
+
         try {
-          if (assets[i].endsWith(".glb")) {
-            await useGLTF.preload(assets[i]);
-          } else if (assets[i].endsWith(".fbx")) {
-            await useFBX.preload(assets[i]);
+          console.log(`Loading ${asset.name}...`);
+
+          // Load based on asset type
+          if (asset.type === "gltf") {
+            await useGLTF.preload(asset.path);
+          } else if (asset.type === "fbx") {
+            await useFBX.preload(asset.path);
+          } else if (asset.type === "texture") {
+            await useTexture.preload(asset.path);
           }
 
-          const progress = ((i + 1) / totalAssets) * 100;
-          setLoadedAssets(i + 1);
-          onProgress(progress);
+          loadedCount++;
+          const progress = (loadedCount / totalAssets) * 100;
 
-          // Small delay to show progress
-          await new Promise((resolve) => setTimeout(resolve, 200));
+          console.log(
+            `Loaded ${asset.name} - Progress: ${Math.round(progress)}%`
+          );
+
+          if (isMounted) {
+            onProgress(progress);
+          }
+
+          // Small delay to ensure smooth progress visualization
+          await new Promise((resolve) => setTimeout(resolve, 100));
         } catch (error) {
-          console.warn(`Failed to load asset: ${assets[i]}`, error);
-          // Continue loading other assets even if one fails
-          const progress = ((i + 1) / totalAssets) * 100;
-          onProgress(progress);
+          console.warn(`Failed to load ${asset.name}:`, error);
+          // Still count as loaded to prevent hanging
+          loadedCount++;
+          const progress = (loadedCount / totalAssets) * 100;
+
+          if (isMounted) {
+            onProgress(progress);
+          }
         }
       }
 
-      // Small delay before completing
-      setTimeout(() => {
-        onComplete();
-      }, 500);
+      // Ensure we reach 100% and wait a moment
+      if (isMounted) {
+        onProgress(100);
+        setTimeout(() => {
+          if (isMounted) {
+            console.log("All assets loaded, starting app...");
+            onComplete();
+          }
+        }, 500);
+      }
     };
 
     loadAssets();
+
+    return () => {
+      isMounted = false;
+    };
   }, [onProgress, onComplete]);
 
   return null;
 };
 
-// Lazy load the 3D scene to split the bundle
+// Lazy load the 3D scene
 const Scene = lazy(() =>
   import("./components/Scene").then((module) => ({ default: module.Scene }))
 );
@@ -117,7 +171,6 @@ function App() {
       return;
     }
 
-    // Determine if we need to play forward or backward
     const playForward = fromRange[0] < toRange[0];
     const range = playForward
       ? [fromRange[0], toRange[1]]
@@ -130,13 +183,17 @@ function App() {
     });
   };
 
-  // Handle loading progress
+  // Handle loading progress - ensure it only goes forward
   const handleLoadingProgress = (progress) => {
-    setLoadingProgress(progress);
+    setLoadingProgress((prevProgress) => {
+      // Only update if progress is higher to prevent backwards movement
+      return Math.max(prevProgress, Math.min(100, progress));
+    });
   };
 
   // Handle loading completion
   const handleLoadingComplete = () => {
+    console.log("Loading complete, hiding loading screen");
     setIsLoading(false);
   };
 
@@ -152,7 +209,6 @@ function App() {
       isSetup.current = true;
 
       if (currentScreen === "Intro") {
-        // Initial setup
         mainSheet.sequence
           .play({
             range: transitions[targetScreen],
@@ -165,7 +221,6 @@ function App() {
             }
           });
       } else {
-        // Handle transitions between screens
         handleScreenTransition(currentScreen, targetScreen).then(() => {
           if (isMounted) {
             setCurrentScreen(targetScreen);

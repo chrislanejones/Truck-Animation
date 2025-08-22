@@ -2,7 +2,11 @@
 
 A stunning 3D interactive experience showcasing a painter's van with smooth animations, realistic lighting, and professional UI transitions. Built with React Three Fiber, Theatre.js, and Framer Motion.
 
-![Van Animation Preview](./preview.gif)
+## 🌐 Live Demo
+
+**[View Live Demo →](https://vercel.com/chrislanejones-projects/truck-animation-m13n)**
+
+![Van Animation Preview](/public/images/Paint-Van-Business.jpg)
 
 ## ✨ Features
 
