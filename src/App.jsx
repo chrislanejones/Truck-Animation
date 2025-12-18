@@ -6,7 +6,6 @@ import extension from "@theatre/r3f/dist/extension";
 import { UI } from "./components/UI";
 import Loading from "./components/Loading";
 import { useGLTF, useFBX, useTexture } from "@react-three/drei";
-
 import projectState from "./assets/VanProject.theatre-project-state-X.json";
 
 export const isProd = import.meta.env.MODE === "production";
@@ -23,11 +22,9 @@ const project = getProject(
 
 const mainSheet = project.sheet("Main");
 
-// Asset Preloader Component
 const AssetPreloader = ({ onProgress, onComplete }) => {
   useEffect(() => {
     let isMounted = true;
-
     const loadAssets = async () => {
       const assets = [
         { path: "/VanWithLogo.glb", type: "gltf", name: "Van Model" },
@@ -57,18 +54,14 @@ const AssetPreloader = ({ onProgress, onComplete }) => {
       let loadedCount = 0;
       const totalAssets = assets.length;
 
-      // Update progress immediately to show 0%
       if (isMounted) {
         onProgress(0);
       }
 
       for (let i = 0; i < assets.length; i++) {
         const asset = assets[i];
-
         try {
           console.log(`Loading ${asset.name}...`);
-
-          // Load based on asset type
           if (asset.type === "gltf") {
             await useGLTF.preload(asset.path);
           } else if (asset.type === "fbx") {
@@ -76,33 +69,25 @@ const AssetPreloader = ({ onProgress, onComplete }) => {
           } else if (asset.type === "texture") {
             await useTexture.preload(asset.path);
           }
-
           loadedCount++;
           const progress = (loadedCount / totalAssets) * 100;
-
           console.log(
             `Loaded ${asset.name} - Progress: ${Math.round(progress)}%`
           );
-
           if (isMounted) {
             onProgress(progress);
           }
-
-          // Small delay to ensure smooth progress visualization
           await new Promise((resolve) => setTimeout(resolve, 100));
         } catch (error) {
           console.warn(`Failed to load ${asset.name}:`, error);
-          // Still count as loaded to prevent hanging
           loadedCount++;
           const progress = (loadedCount / totalAssets) * 100;
-
           if (isMounted) {
             onProgress(progress);
           }
         }
       }
 
-      // Ensure we reach 100% and wait a moment
       if (isMounted) {
         onProgress(100);
         setTimeout(() => {
@@ -115,7 +100,6 @@ const AssetPreloader = ({ onProgress, onComplete }) => {
     };
 
     loadAssets();
-
     return () => {
       isMounted = false;
     };
@@ -124,7 +108,6 @@ const AssetPreloader = ({ onProgress, onComplete }) => {
   return null;
 };
 
-// Lazy load the 3D scene
 const Scene = lazy(() =>
   import("./components/Scene").then((module) => ({ default: module.Scene }))
 );
@@ -183,15 +166,12 @@ function App() {
     });
   };
 
-  // Handle loading progress - ensure it only goes forward
   const handleLoadingProgress = (progress) => {
     setLoadingProgress((prevProgress) => {
-      // Only update if progress is higher to prevent backwards movement
       return Math.max(prevProgress, Math.min(100, progress));
     });
   };
 
-  // Handle loading completion
   const handleLoadingComplete = () => {
     console.log("Loading complete, hiding loading screen");
     setIsLoading(false);
@@ -202,7 +182,6 @@ function App() {
 
     project.ready.then(() => {
       if (!isMounted) return;
-
       if (currentScreen === targetScreen) return;
       if (isSetup.current && currentScreen === "Intro") return;
 
@@ -234,7 +213,6 @@ function App() {
     };
   }, [targetScreen]);
 
-  // Show loading screen while assets are loading
   if (isLoading) {
     return (
       <>
@@ -255,7 +233,7 @@ function App() {
         isAnimating={currentScreen !== targetScreen}
       />
       <Suspense fallback={<LoadingScreen />}>
-        <Scene mainSheet={mainSheet} />
+        <Scene mainSheet={mainSheet} isLoading={isLoading} />
       </Suspense>
     </>
   );

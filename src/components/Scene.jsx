@@ -10,7 +10,7 @@ const CubeLoader = () => (
   </mesh>
 );
 
-export const Scene = ({ mainSheet }) => {
+export const Scene = ({ mainSheet, isLoading }) => {
   const cameraTargetRef = useRef();
 
   return (
@@ -39,7 +39,7 @@ export const Scene = ({ mainSheet }) => {
             <octahedronGeometry args={[0.1, 0]} />
             <meshPhongMaterial color="yellow" />
           </e.mesh>
-          <Experience />
+          <Experience isLoading={isLoading} />
         </SheetProvider>
       </Suspense>
     </Canvas>

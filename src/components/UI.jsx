@@ -57,13 +57,6 @@ export const UI = ({ currentScreen, onScreenChange }) => {
           initial="hidden"
           animate={currentScreen === "Start" ? "visible" : "hidden"}
         >
-          <motion.img
-            alt="Paint Truck"
-            src="/images/Daves-Paint.jpg"
-            variants={itemVariants}
-            style={{ height: "160px", marginBottom: "20px", opacity: 0.9 }}
-          />
-
           <motion.h1
             style={{
               fontSize: "56px",

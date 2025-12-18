@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const Loading = ({ progress = 0 }) => {
   const [displayProgress, setDisplayProgress] = useState(0);
-  const [loadingText, setLoadingText] = useState("Loading assets...");
+  const [loadingText, setLoadingText] = useState("Initializing...");
 
-  // Smooth progress animation - prevents backwards movement
   useEffect(() => {
     const targetProgress = Math.max(0, Math.min(100, progress));
 
-    // Update loading text based on progress
     if (targetProgress < 20) {
       setLoadingText("Loading 3D models...");
     } else if (targetProgress < 40) {
@@ -20,11 +19,10 @@ const Loading = ({ progress = 0 }) => {
     } else if (targetProgress < 100) {
       setLoadingText("Almost ready...");
     } else {
-      setLoadingText("Complete!");
+      setLoadingText("Ready to paint!");
     }
 
-    // Smooth progress transition
-    const duration = 300; // ms
+    const duration = 300;
     const startTime = Date.now();
     const startProgress = displayProgress;
     const progressDiff = targetProgress - startProgress;
@@ -32,8 +30,6 @@ const Loading = ({ progress = 0 }) => {
     const animate = () => {
       const elapsed = Date.now() - startTime;
       const progressRatio = Math.min(elapsed / duration, 1);
-
-      // Easing function for smooth animation
       const easeOut = 1 - Math.pow(1 - progressRatio, 3);
       const newProgress = startProgress + progressDiff * easeOut;
 
@@ -44,56 +40,248 @@ const Loading = ({ progress = 0 }) => {
       }
     };
 
-    // Only animate if progress is moving forward
     if (targetProgress > displayProgress) {
       requestAnimationFrame(animate);
     }
   }, [progress, displayProgress]);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 12,
+      },
+    },
+  };
+
   return (
-    <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
-      <div className="text-center">
-        {/* Loading Text */}
-        <h2 className="text-white text-2xl font-light mb-8 tracking-wide">
-          Loading
-        </h2>
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: "linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 999,
+        overflow: "hidden",
+      }}
+    >
+      {/* Background gradient orbs */}
+      <motion.div
+        style={{
+          position: "absolute",
+          width: "400px",
+          height: "400px",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, transparent 70%)",
+          top: "-50px",
+          right: "-100px",
+        }}
+        animate={{
+          x: [0, 50, 0],
+          y: [0, 50, 0],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+      <motion.div
+        style={{
+          position: "absolute",
+          width: "300px",
+          height: "300px",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%)",
+          bottom: "-100px",
+          left: "-50px",
+        }}
+        animate={{
+          x: [0, -50, 0],
+          y: [0, -50, 0],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
 
-        {/* Progress Bar Container */}
-        <div className="w-80 bg-gray-800 rounded-full h-3 overflow-hidden shadow-inner">
-          {/* Progress Bar Fill */}
-          <div
-            className="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transition-all duration-300 ease-out relative"
-            style={{ width: `${displayProgress}%` }}
+      {/* Main content */}
+      <motion.div
+        style={{
+          textAlign: "center",
+          zIndex: 10,
+          width: "90%",
+          maxWidth: "800px",
+          paddingLeft: "20px",
+          paddingRight: "20px",
+        }}
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        {/* Logo/Title */}
+        <motion.div variants={itemVariants} style={{ marginBottom: "40px" }}>
+          <motion.h1
+            style={{
+              fontSize: "48px",
+              color: "#22d3ee",
+              fontWeight: "900",
+              margin: "0 0 10px 0",
+              textShadow: "0 10px 30px rgba(34, 211, 238, 0.2)",
+            }}
+            animate={{
+              textShadow: [
+                "0 10px 30px rgba(34, 211, 238, 0.2)",
+                "0 10px 40px rgba(34, 211, 238, 0.4)",
+                "0 10px 30px rgba(34, 211, 238, 0.2)",
+              ],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
           >
-            {/* Animated shine effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
-          </div>
-        </div>
+            River County Painter
+          </motion.h1>
+          <p
+            style={{
+              color: "#999",
+              fontSize: "14px",
+              margin: 0,
+              letterSpacing: "2px",
+              textTransform: "uppercase",
+            }}
+          >
+            Loading Experience
+          </p>
+        </motion.div>
 
-        {/* Progress Info */}
-        <div className="flex justify-between items-center mt-4 text-sm w-80">
-          <span className="text-gray-400">{loadingText}</span>
-          <span className="text-cyan-300 font-mono">
+        {/* Progress bar container */}
+        <motion.div
+          variants={itemVariants}
+          style={{
+            width: "100%",
+            height: "8px",
+            background: "rgba(255, 255, 255, 0.1)",
+            borderRadius: "10px",
+            overflow: "hidden",
+            marginBottom: "40px",
+            border: "1px solid rgba(34, 211, 238, 0.2)",
+          }}
+        >
+          {/* Progress fill */}
+          <motion.div
+            style={{
+              height: "100%",
+              background: "linear-gradient(90deg, #22d3ee 0%, #0891b2 100%)",
+              width: `${displayProgress}%`,
+              borderRadius: "10px",
+              boxShadow: "0 0 20px rgba(34, 211, 238, 0.5)",
+            }}
+            transition={{ ease: "linear" }}
+          />
+        </motion.div>
+
+        {/* Percentage text */}
+        <motion.div
+          variants={itemVariants}
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: "30px",
+          }}
+        >
+          <span
+            style={{
+              color: "#666",
+              fontSize: "12px",
+            }}
+          >
+            {loadingText}
+          </span>
+          <span
+            style={{
+              color: "#22d3ee",
+              fontSize: "14px",
+              fontWeight: "600",
+            }}
+          >
             {Math.round(displayProgress)}%
           </span>
-        </div>
+        </motion.div>
 
-        {/* Loading indicator dots */}
-        <div className="flex justify-center space-x-1 mt-6">
-          <div
-            className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"
-            style={{ animationDelay: "0ms" }}
-          ></div>
-          <div
-            className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"
-            style={{ animationDelay: "200ms" }}
-          ></div>
-          <div
-            className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"
-            style={{ animationDelay: "400ms" }}
-          ></div>
-        </div>
-      </div>
+        {/* Loading dots */}
+        <motion.div
+          variants={itemVariants}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "8px",
+          }}
+        >
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={i}
+              style={{
+                width: "10px",
+                height: "10px",
+                borderRadius: "50%",
+                background: "#22d3ee",
+              }}
+              animate={{
+                opacity: [0.3, 1, 0.3],
+                scale: [0.8, 1.2, 0.8],
+              }}
+              transition={{
+                duration: 1.2,
+                repeat: Infinity,
+                delay: i * 0.2,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+        </motion.div>
+
+        {/* Tip text */}
+        <motion.p
+          variants={itemVariants}
+          style={{
+            marginTop: "40px",
+            color: "#555",
+            fontSize: "12px",
+            maxWidth: "100%",
+            lineHeight: "1.6",
+          }}
+        >
+          Preparing your interactive 3D experience
+        </motion.p>
+      </motion.div>
     </div>
   );
 };

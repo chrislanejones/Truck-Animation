@@ -1,52 +1,110 @@
-import { useTexture, Environment, OrbitControls } from "@react-three/drei";
-import * as THREE from "three";
-import { Avatarclj } from "./Avatarclj";
-import { Background } from "./Background";
+import { Environment } from "@react-three/drei";
 import { editable as e } from "@theatre/r3f";
+import { useFrame, useThree } from "@react-three/fiber";
+import { useEffect, useRef } from "react";
+import { Van } from "./Van-With-Logo";
+import { Avatarclj } from "./Avatarclj";
 import Paint from "./Paint";
-import { Van } from "./Van-With Logo";
-import { useEffect, useState } from "react";
+import { Background } from "./Background";
 
-function Experience() {
-  const [vanVisible, setVanVisible] = useState(false);
-  const [manVisible, setManVisible] = useState(false);
-  const [canVisible, setCanVisible] = useState(false);
+function Experience({ isLoading }) {
+  const vanRoot = useRef();
+  const { camera } = useThree();
+
+  // physics state
+  const started = useRef(false);
+  const velocity = useRef(0);
+  const impactDone = useRef(false);
+
+  // ------------------
+  // TUNING (MORE BOUNCE)
+  // ------------------
+  const DROP_HEIGHT = 620; // higher drop
+  const SPRING = 140; // harder spring
+  const DAMPING = 13; // lower damping = bigger recoil
+  const MASS = 1;
+
+  // suspension angles
+  const PITCH_MAX = 0.42; // ~24°
+  const ROLL_MAX = 0.34; // ~19°
+
+  // camera shake
+  const SHAKE_STRENGTH = 0.55;
+  const SHAKE_DURATION = 0.22;
+  const shakeTime = useRef(0);
 
   useEffect(() => {
-    setTimeout(() => {
-      setVanVisible(true);
-    }, 200);
-  }, []);
+    if (!isLoading) {
+      started.current = true;
+    }
+  }, [isLoading]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setManVisible(true);
-    }, 300);
-  }, []);
+  useFrame((_, delta) => {
+    if (!started.current || !vanRoot.current) return;
 
-  useEffect(() => {
-    setTimeout(() => {
-      setCanVisible(true);
-    }, 400);
-  }, []);
+    // --- vertical spring ---
+    const y = vanRoot.current.position.y;
+    const force = -SPRING * y;
+    const accel = force / MASS;
+
+    velocity.current += accel * delta;
+    velocity.current *= Math.exp(-DAMPING * delta);
+    vanRoot.current.position.y += velocity.current * delta;
+
+    const compression = Math.min(Math.abs(y) / DROP_HEIGHT, 1);
+
+    // --- SUSPENSION (bigger, slower release) ---
+    const pitch = -compression * PITCH_MAX * Math.exp(-compression * 0.7);
+
+    const roll = -compression * ROLL_MAX * Math.exp(-compression * 1.0);
+
+    vanRoot.current.rotation.x = pitch;
+    vanRoot.current.rotation.z = roll;
+
+    // --- IMPACT DETECTION ---
+    if (!impactDone.current && compression > 0.88) {
+      impactDone.current = true;
+      shakeTime.current = SHAKE_DURATION;
+    }
+
+    // --- CAMERA SHAKE ---
+    if (shakeTime.current > 0) {
+      shakeTime.current -= delta;
+      const s = shakeTime.current / SHAKE_DURATION;
+
+      camera.position.x += (Math.random() - 0.5) * SHAKE_STRENGTH * s;
+      camera.position.y += (Math.random() - 0.5) * SHAKE_STRENGTH * s;
+      camera.rotation.z += (Math.random() - 0.5) * 0.01 * s;
+    }
+
+    // --- FINAL SETTLE (single landing only) ---
+    if (Math.abs(y) < 0.015 && Math.abs(velocity.current) < 0.015) {
+      vanRoot.current.position.y = 0;
+      vanRoot.current.rotation.x = 0;
+      vanRoot.current.rotation.z = 0;
+      velocity.current = 0;
+      started.current = false;
+    }
+  });
 
   return (
     <>
-      {/* Enhanced ambient lighting for better overall illumination */}
-      <ambientLight intensity={0.4} color="#f5f5f5" />
-
-      {/* Environment with slight intensity to contribute to lighting */}
-      <Environment
-        background={true}
-        preset={"park"}
-        backgroundRotation={[0, Math.PI / 3, 0]}
-        environmentIntensity={0.3}
-      />
+      <Environment background preset="park" environmentIntensity={0.3} />
 
       <e.group theatreKey="World">
-        <e.group theatreKey="Van">
-          {vanVisible && <Van scale={0.05} />}
-          {manVisible && (
+        {/* SPAWN HIGH + HEAVILY TILTED */}
+        <group
+          ref={vanRoot}
+          position={[0, DROP_HEIGHT, 0]}
+          rotation={[
+            -PITCH_MAX * 0.85, // nose DOWN hard
+            0,
+            -ROLL_MAX * 0.85, // driver side DOWN
+          ]}
+        >
+          <e.group theatreKey="Van">
+            <Van scale={0.05} />
+
             <Avatarclj
               rotation-y={Math.PI}
               rotation-x={Math.PI / 2}
@@ -54,26 +112,16 @@ function Experience() {
               scale={4.5}
               position={[-0.4, 3.7, 4.8]}
             />
-          )}
-          {canVisible && <Paint />}
-        </e.group>
+
+            <Paint />
+          </e.group>
+        </group>
+
         <Background />
 
-        {/* Your existing sun light */}
-        <e.pointLight
-          theatreKey="SunLight"
-          position={[100, 20, -10]}
-          decay={0}
-          color="#FFC300"
-          intensity={Math.PI * 0.3}
-        />
-
-        {/* Additional subtle fill light to brighten shadows */}
         <e.pointLight
           theatreKey="FillLight"
           position={[-50, 30, 50]}
-          decay={2}
-          color="#b8d4ff"
           intensity={0.5}
         />
       </e.group>
